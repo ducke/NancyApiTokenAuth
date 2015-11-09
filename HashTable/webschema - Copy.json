@@ -1,0 +1,14 @@
+﻿{
+	"webschema":[
+		{
+			"method":"Get",
+			"path":"/",
+			"script":"Test"
+		},
+		{
+			"method":"Get",
+			"path":"/lol",
+			"script":"Test2"
+		}
+	]
+}

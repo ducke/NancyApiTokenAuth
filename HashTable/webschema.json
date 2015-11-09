@@ -1,0 +1,17 @@
+﻿[
+    {
+        "method": "Get",
+        "path": "/lol",
+        "script": "Test2"
+    },
+    {
+        "method": "Get",
+        "path": "/process",
+        "script": "Get-Process | select name, id, path | ConvertTo-Json"
+    },
+    {
+        "method": "Get",
+        "path": "/prettyprocess",
+        "script": "Get-Process | ConvertTo-HTML name, id, path"
+    }
+]

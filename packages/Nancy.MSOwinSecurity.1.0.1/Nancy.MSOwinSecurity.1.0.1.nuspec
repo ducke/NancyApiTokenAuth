@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Nancy.MSOwinSecurity</id>
+    <version>1.0.1</version>
+    <authors>Damian Hickey</authors>
+    <owners>Damian Hickey</owners>
+    <licenseUrl>https://github.com/damianh/Nancy.MSOwinSecurity/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/damianh/Nancy.MSOwinSecurity</projectUrl>
+    <iconUrl>http://nancyfx.org/nancy-nuget.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Enables Nancy integration with Microsoft.Owin.Security middleware.</description>
+    <copyright>Damian Hickey</copyright>
+    <language>en-US</language>
+    <tags>Nancy OWIN Katana</tags>
+    <dependencies>
+      <dependency id="Nancy" version="(0.21, )" />
+      <dependency id="Microsoft.Owin" version="(2.0, )" />
+    </dependencies>
+  </metadata>
+</package>

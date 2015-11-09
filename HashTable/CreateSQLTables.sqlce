@@ -1,0 +1,28 @@
+-- Script Date: 06.11.2015 11:46  - ErikEJ.SqlCeScripting version 3.5.2.56
+CREATE TABLE [user] (
+  [user_id] int IDENTITY (1,1) NOT NULL
+, [name] nvarchar(255) NOT NULL
+, [password_hash] nvarchar(255) NOT NULL
+, [password_salt] nvarchar(255) NOT NULL
+);
+GO
+ALTER TABLE [user] ADD CONSTRAINT [PK_user] PRIMARY KEY ([user_id]);
+GO
+-- Script Date: 06.11.2015 12:17  - ErikEJ.SqlCeScripting version 3.5.2.56
+CREATE TABLE [user_claim] (
+  [user_claim_id] int IDENTITY (1,1) NOT NULL
+, [user_id] int NOT NULL
+, [claim_id] int NOT NULL
+);
+GO
+ALTER TABLE [user_claim] ADD CONSTRAINT [PK_user_claim] PRIMARY KEY ([user_claim_id]);
+GO
+-- Script Date: 06.11.2015 12:16  - ErikEJ.SqlCeScripting version 3.5.2.56
+CREATE TABLE [auth] (
+  [claim_id] int IDENTITY (1,1) NOT NULL
+, [type] nvarchar(255) NOT NULL
+, [value] nvarchar(255) NOT NULL
+);
+GO
+ALTER TABLE [auth] ADD CONSTRAINT [PK_auth] PRIMARY KEY ([claim_id]);
+GO
