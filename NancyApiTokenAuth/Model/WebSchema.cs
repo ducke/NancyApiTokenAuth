@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HashTable {
-
+namespace NancyApiTokenAuth.Model
+{
     public class MySchema
     {
         public List<WebSchema> data { get; set; }

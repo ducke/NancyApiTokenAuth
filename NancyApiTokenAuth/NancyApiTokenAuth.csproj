@@ -132,6 +132,7 @@
     <Compile Include="Model\ClaimIdentity.cs" />
     <Compile Include="Model\UserIdentity.cs" />
     <Compile Include="Modules\PowershellModule.cs" />
+    <None Include="Modules\TestModule.cs" />
     <None Include="Nancy.cs.old" />
     <Compile Include="Modules\RegistrationModule.cs" />
     <Compile Include="Program.cs" />
@@ -150,7 +151,7 @@
     <Compile Include="Services\IRegistrationService.cs" />
     <Compile Include="Services\RegistrationService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="WebSchema.cs" />
+    <Compile Include="Model\WebSchema.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

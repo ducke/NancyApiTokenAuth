@@ -1,13 +1,21 @@
-﻿function New-ApiUser {
+﻿$user = 'manuel.henke'
+$pass = 'wh00t'
+$secpasswd = ConvertTo-SecureString $pass -AsPlainText -Force
+$credential = New-Object System.Management.Automation.PSCredential($user, $secpasswd)
+
+
+function New-ApiUser {
   [CmdletBinding()]
   param(
-    $Username,
-    $Password
+    [pscredential]$Credential
+    #$Username,
+    #$Password
   )
   try {
+
     $person = @{
-        username=$Username
-        password=$Password
+        username=$credential.GetNetworkCredential().username
+        password=$credential.GetNetworkCredential().password
       }
       $Headers = @{
               'Accept' = '*/*'
@@ -16,10 +24,10 @@
 
       $json = $person | ConvertTo-Json -Compress
 
-      $Respond = Invoke-WebRequest -Method POST -Uri 'http://localhost.fiddler:8080/api/register' -Header $Headers -Proxy 'http://localhost:8888' -Body $json -ErrorAction Stop
-      if ($Respond.Statuscode -ne 200) {
-        Write-Error 'Schief gelaufen'
-  
+      $Respond = Invoke-WebRequest -Method POST -Uri 'http://localhost:8080/api/register' -Header $Headers -Body $json -ErrorAction Stop
+      #-Uri 'http://localhost.fiddler:8080/api/register' -Proxy 'http://localhost:8888'
+      if (-not $Respond.Statuscode -like '200') {
+        Write-Error 'Schief gelaufen'  
       }  
   }
   catch {
@@ -30,18 +38,19 @@
 function Get-ApiToken {
   [CmdletBinding()]
   param(
-    $Username,
-    $Password
+    [pscredential]$Credential
+    #$Username,
+    #$Password
   )
   $Header = @{
     'content-type' = 'application/x-www-form-urlencoded'
   }
   $token = @{
     grant_type='password'
-    username=$Username
-    password=$Password
+    username=$credential.GetNetworkCredential().username
+    password=$credential.GetNetworkCredential().password
   }
-  $response = Invoke-WebRequest -Method Post -Uri 'http://localhost.fiddler:8080/token' -Headers $header -Proxy 'http://localhost:8888' -Body $token
+  $response = Invoke-WebRequest -Method Post -Uri 'http://localhost:8080/token' -Headers $header -Body $token
   $global:access_token = ($response.Content | ConvertFrom-Json).access_token
   Write-Output 'Access Token is stored in variable $access_token'
 }
@@ -52,5 +61,5 @@ function Get-AuthRequest {
     $Token
   )
   $HeaderValue = 'Bearer ' + $Token
-  Invoke-RestMethod -Uri http://localhost.fiddler:8080/api/admin -Headers @{Authorization = $HeaderValue} -Proxy 'http://localhost:8888'
+  Invoke-RestMethod -Uri http://localhost:8080/api/process -Headers @{Authorization = $HeaderValue}
 }

@@ -1,39 +1,23 @@
 ﻿using Nancy;
-using NancyApiTokenAuth.Infrastructure.Nancy;
-using NancyApiTokenAuth.Infrastructure.Authentication;
-using System.Management.Automation;
-using System.Collections.Generic;
 using NancyApiTokenAuth.Model;
-using System.IO;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Management.Automation;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using NancyApiTokenAuth.Infrastructure.Nancy;
+using System.IO;
 
 namespace NancyApiTokenAuth.Modules
 {
-    public class PowershellModule : SecureModule
+    public class TestModule : SecureModule
     {
         public PowerShell shell = PowerShell.Create();
 
-        public PowershellModule()
+        public TestModule()
         {
-            Get["/admin"] = _ =>
-            {
-                if (!this.Principal.HasClaim(SampleClaimTypes.Admin))
-                {
-                    return HttpStatusCode.Forbidden;
-                }
-
-                return "Hello Admin!";
-            };
-
-//            Get["/"] = _ =>
-//            {
-//                if (!IsAuthenticated)
-//                {
-//                    return HttpStatusCode.Forbidden;
-//                }
-//
-//                return "Hello User!";
-//            };
             StaticConfiguration.DisableErrorTraces = false;
             List<WebSchema> myDeserializedObjList = (List<WebSchema>)Newtonsoft.Json.JsonConvert.DeserializeObject((File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "webschema.json"))), typeof(List<WebSchema>));
             foreach (var result in myDeserializedObjList)
@@ -88,3 +72,4 @@ namespace NancyApiTokenAuth.Modules
         }
     }
 }
+
